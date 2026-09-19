@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Brittany Carlson - Signature</title>
+    <style>
+        body { font-family: Arial, sans-serif; display: flex; flex-direction: column; align-items: center; }
+        .steps { display: flex; flex-direction: column; gap: 30px; }
+        .steps span { font-size: 20px; }
+    </style>
+</head>
+<body>
+    <div id="content">
+    <table style="font-family: Arial, Helvetica, sans-serif; width: 504px; border-collapse: collapse; height: 151px;">
+        <tbody>
+            <tr style="height: 151px;">
+                <td style="vertical-align: top; padding-top: 5px; padding-right: 5px; width: 150.297px; height: 151px;">
+                    <img src="https://cdn.jsdelivr.net/gh/magn3tic/mag-signatures@v1.0.0/images/headshots/us/brittany-carlson-400x400transparent.png" alt="Brittany Carlson" width="150" height="149" />
+                </td>
+                <td style="vertical-align: top; width: 342.703px; height: 151px;">
+                    <span style="font-size: 28px; color: black; font-family: 'Times New Roman', serif;">Brittany Carlson</span><br />
+                    <span style="color: #b59756;">Account Operations Manager</span> 
+                    <br />
+                    <table style="margin-top: 10px;">
+                        <tbody>
+                            <tr>
+                                <td style="vertical-align: middle;">
+                                    <img src="https://cdn.jsdelivr.net/gh/magn3tic/mag-signatures@v1.0.0/images/icons/mail.png" alt="" width="18" />
+                                </td>
+                                <td style="vertical-align: middle; padding-left: 5px;">
+                                    <a style="text-decoration: none; border-bottom: none; color: #333333;" href="mailto:Brittany@mag.cr">Brittany@mag.cr</a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="vertical-align: middle;">
+                                    <img src="https://cdn.jsdelivr.net/gh/magn3tic/mag-signatures@v1.0.0/images/icons/globe.png" alt="" width="18" />
+                                </td>
+                                <td style="vertical-align: middle; padding-left: 5px;">
+                                    <a style="text-decoration: none; border-bottom: none; color: #333333;" href="https://magneticcreative.com/" target="_blank">magneticcreative.com</a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="vertical-align: middle;">
+                                    <img src="https://cdn.jsdelivr.net/gh/magn3tic/mag-signatures@v1.0.0/images/icons/smartphone.png" alt="" width="18" />
+                                </td>
+                                <td style="vertical-align: middle; padding-left: 5px;">
+                                    <a style="text-decoration: none; border-bottom: none; color: #333333;" href="tel:951-225-5607">951-225-5607</a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<br><br>
+    <span>Step 1</span>
+<button id="btn">Click here to copy</button>
+<br><br>
+
+<div class="steps">
+    <span>Step 2: Go to <a href="https://mail.google.com/mail" target="_blank">Gmail.com</a> and click on settings</span>
+
+    <img src="../assets/step 2.png" alt="">
+    <span>Click on See all settings</span>
+    <img src="../assets/step 3.png" alt="">
+    <span>Scroll down and click on Create new button</span>
+    <img src="../assets/step 4.png" alt="">
+    <span>Add name, click on Create</span>
+    <img src="../assets/step 5.png" alt="">
+    <span>Paste the signature and select it on "For New emails use" and "On reply/forward use" then save changes</span>
+    <img src="../assets/step 6.png" alt="">
+</div>
+</body>
+
+<style>
+    body{
+        display: flex;
+    flex-direction: column;
+    align-items: center;
+    }
+    .steps{
+        display: flex;
+        flex-direction: column;
+        gap: 30px;
+    }
+    .steps span{
+        font-size: 28px;
+    }
+    
+</style>
+<script>
+    document.getElementById("btn").addEventListener("click", async function() {
+        const content = document.getElementById("content").outerHTML;
+        
+        try {
+            await navigator.clipboard.write([
+                new ClipboardItem({
+                    "text/html": new Blob([content], { type: "text/html" })
+                })
+            ]);
+            alert("Copied");
+        } catch (err) {
+            console.error("Error: ", err);
+            alert("Error. Ask Gabo");
+        }
+    });
+</script>
+</body>
+</html>
