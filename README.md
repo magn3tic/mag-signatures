@@ -31,8 +31,8 @@ put a `@main` URL into a signature that goes out to people.
 ## Layout
 
 ```
-pages/                      the 63 signature pages people open to copy their signature
-generator/                  the SA and US signature generators
+pages/                      the 63 signature pages, plus index.html
+generator/                  the build scripts, and the old SA and US generators
 images/icons/               shared chrome: globe, mail, smartphone
 images/headshots/us/        US headshots
 images/headshots/sa/        SA headshots
@@ -46,8 +46,27 @@ migration/url-map.json      every old HubSpot URL and the file it became
 Served by GitHub Pages off `main`:
 
 ```
-https://magn3tic.github.io/mag-signatures/pages/Gabriel_Arias.html
+https://magn3tic.github.io/mag-signatures/pages/index.html          the master list
+https://magn3tic.github.io/mag-signatures/pages/Gabriel_Arias.html  one person
 ```
+
+`index.html` is the page to send round: all 63 signatures grouped by region,
+searchable, with one switch that flips every preview to dark and a copy button
+on each card. Each person's own page shows their signature on white and on
+black, gives them the three ways to take it away — copy, a `.htm` for Outlook
+desktop, or the link — and walks them through Gmail with screenshots.
+
+The pages are generated. Editing one by hand is overwritten on the next build:
+
+```bash
+python3 generator/extract.py        # read the pages -> generator/people.json
+python3 generator/build-person.py   # rebuild the 63
+python3 generator/build-index.py    # rebuild index.html
+```
+
+`extract.py` reads the signature markup back out of the pages themselves, so
+the signatures survive a rebuild untouched — the design around them is the only
+thing regenerated.
 
 Two different jobs in one repo, and the difference matters. The images are
 pinned by tag and must never change under a signature already sitting in
