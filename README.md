@@ -31,6 +31,8 @@ put a `@main` URL into a signature that goes out to people.
 ## Layout
 
 ```
+MAG-signatures-master.xlsx  who has a signature -- the sheet to work from
+MAG-signatures-master.csv   the same rows, plain text
 pages/                      the 63 signature pages, plus index.html
 generator/                  the build scripts, and the old SA and US generators
 images/icons/               shared chrome: globe, mail, smartphone
@@ -67,6 +69,27 @@ python3 generator/build-index.py    # rebuild index.html
 `extract.py` reads the signature markup back out of the pages themselves, so
 the signatures survive a rebuild untouched — the design around them is the only
 thing regenerated.
+
+## When someone leaves
+
+`MAG-signatures-master.xlsx` lists all 63 with their role, address, phone,
+region, page and page URL. Set their **Status** to `Remove` in the Signatures
+tab, save, and run:
+
+```bash
+python3 generator/remove.py            # show what would go
+python3 generator/remove.py --apply    # delete the pages and rebuild
+```
+
+Their headshot stays in `images/` on purpose. Emails they already sent still
+hotlink it, and pulling the file breaks their signature in every one of them.
+
+The sheet is generated, but a rebuild reads the Status column back first, so
+what you have typed is never lost. Editing any other column changes nothing on
+its own — the signature markup lives in the page.
+
+Eleven rows come pre-flagged in **Notes**: five people hold two pages each under
+one address, and one phone row links to an empty `tel:`.
 
 Two different jobs in one repo, and the difference matters. The images are
 pinned by tag and must never change under a signature already sitting in

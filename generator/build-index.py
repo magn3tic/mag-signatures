@@ -52,10 +52,9 @@ INDEX_CSS = """
 .linkish{font:inherit; color:var(--primary); background:none; border:0; padding:0;
   text-decoration:underline; cursor:pointer;}
 
-/* While a search is running the intro and the notes are about the whole set,
-   not the handful on screen, so they get out of the way. */
-body.is-filtering .hero,
-body.is-filtering .flags{display:none;}
+/* While a search is running the intro is about the whole set, not the handful
+   on screen, so it gets out of the way. */
+body.is-filtering .hero{display:none;}
 body.is-filtering .region:first-of-type{margin-top:var(--sp-8);}
 
 .region{margin:var(--sp-12) 0;}
@@ -171,33 +170,6 @@ def esc(s): return html.escape(s or "", quote=True)
 
 people = json.load(open("generator/people.json"))
 
-# --- the notes worth reading before this goes out -------------------------
-by_mail = collections.defaultdict(list)
-for p in people:
-    by_mail[p["email"].lower()].append(p)
-twins = {k: v for k, v in by_mail.items() if len(v) > 1}
-no_phone = [p for p in people if not p["phone"]]
-
-flags = []
-if twins:
-    pairs = "; ".join("%s &amp; %s" % (esc(v[0]["name"]), esc(v[1]["name"])) for v in twins.values())
-    flags.append((
-        "Five people have two pages each &mdash; %d of the 63" % sum(len(v) for v in twins.values()),
-        "%s. Each pair shares one address and one headshot, so they are name variants, not "
-        "different people. Send each person the one spelling they actually use, and delete the "
-        "other page once that is settled." % pairs))
-if no_phone:
-    flags.append((
-        "Empty phone link &mdash; %s" % ", ".join(esc(p["name"]) for p in no_phone),
-        "the signature carries a phone row whose link is <code>tel:</code> with nothing after it, "
-        "so it renders as a clickable icon that dials nothing. Either fill the number in or drop "
-        "the row."))
-flags.append((
-    "One stale copy was left behind",
-    "the old repo kept a second set of 56 pages under <code>signature-generator/signatures/</code>. "
-    "It was not carried over: it had a broken <code>src=\"undefined\"</code> on Owen Korinek and "
-    "still showed Mia Pitino's previous headshot."))
-
 # --- regions ---------------------------------------------------------------
 order = ["United States", "South Africa"]
 groups = collections.OrderedDict((r, []) for r in order)
@@ -240,9 +212,6 @@ for region, members in groups.items():
     </div>
 {cards}
   </section>""".format(rid=rid, region=esc(region), n=len(members), cards="\n".join(cards)))
-
-flag_items = "\n".join(
-    '      <li><b>%s</b><span class="why">%s</span></li>' % (t, w) for t, w in flags)
 
 doc = """<!DOCTYPE html>
 <html lang="en">
@@ -288,12 +257,6 @@ doc = """<!DOCTYPE html>
        Gmail walk-through on their own page.</p>
   </div>
 
-  <details class="flags" open>
-    <summary>{alert}<span>{nflags} things to look at before sign-off</span></summary>
-    <ul>
-{flag_items}
-    </ul>
-  </details>
 
 {sections}
 
@@ -315,10 +278,9 @@ doc = """<!DOCTYPE html>
 </html>
 """.format(fonts=theme.FONTS, base=BASE, css=theme.BASE + INDEX_CSS,
            js=ui.CLIPBOARD_JS, indexjs=INDEX_JS, total=len(people),
-           search=ui.SEARCH, x=ui.X, moon=ui.MOON, alert=ui.ALERT,
-           nflags=len(flags), flag_items=flag_items,
+           search=ui.SEARCH, x=ui.X, moon=ui.MOON,
            chips="\n".join(chips), sections="\n\n".join(sections))
 
 open("pages/index.html", "w", encoding="utf-8").write(doc)
-print("index.html: %d cards, %d regiones, %d avisos, %.0f KB"
-      % (len(people), len(groups), len(flags), len(doc) / 1024))
+print("index.html: %d cards, %d regiones, %.0f KB"
+      % (len(people), len(groups), len(doc) / 1024))
