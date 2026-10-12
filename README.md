@@ -116,8 +116,8 @@ The sheet is generated, but a rebuild reads the Status column back first, so
 what you have typed is never lost. Editing any other column changes nothing on
 its own — the signature markup lives in the page.
 
-Eleven rows come pre-flagged in **Notes**: five people hold two pages each under
-one address, and one phone row links to an empty `tel:`.
+The **Notes** column flags two pages under one address, or a phone row that
+links to an empty `tel:`.
 
 Two different jobs in one repo, and the difference matters. The images are
 pinned by tag and must never change under a signature already sitting in
