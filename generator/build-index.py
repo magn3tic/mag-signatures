@@ -268,7 +268,7 @@ doc = """<!DOCTYPE html>
   <p>Published at <a href="{base}"><code>{base}</code></a> &mdash; each person's link is that
      plus their file name, e.g. <code>Gabriel_Arias.html</code>.</p>
   <p>Rebuild with <code>python3 generator/extract.py &amp;&amp; python3 generator/build-person.py &amp;&amp; python3 generator/build-index.py</code>.</p>
-  <p>Images load from <code>cdn.jsdelivr.net/gh/magn3tic/mag-signatures@v1.0.0</code>, pinned to the
+  <p>Images load from <code>{cdn}</code>, pinned to the
      tag, so this page renders exactly what gets pasted.</p>
 </footer>
 
@@ -277,7 +277,7 @@ doc = """<!DOCTYPE html>
 </body>
 </html>
 """.format(fonts=theme.FONTS, base=BASE, css=theme.BASE + INDEX_CSS,
-           js=ui.CLIPBOARD_JS, indexjs=INDEX_JS, total=len(people),
+           js=ui.CLIPBOARD_JS, cdn=theme.CDN.split("//", 1)[1], indexjs=INDEX_JS, total=len(people),
            search=ui.SEARCH, x=ui.X, moon=ui.MOON,
            chips="\n".join(chips), sections="\n\n".join(sections))
 

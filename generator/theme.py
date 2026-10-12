@@ -5,6 +5,10 @@ magneticcreative.com, the #d53703 primary and the #b59756 gold that the
 signatures themselves use for the job title.
 """
 
+# Where the signature artwork is served from. jsDelivr caches a tag forever, so
+# new artwork goes out under a NEW tag (see README) and this line moves with it.
+CDN = "https://cdn.jsdelivr.net/gh/magn3tic/mag-signatures@v1.1.0"
+
 FONTS = """
 @font-face{font-family:Aeonik;font-style:normal;font-weight:400;font-display:swap;
   src:url(https://magneticcreative.com/hubfs/2023-web/fonts/Aeonik-Regular.woff2) format("woff2"),url(https://magneticcreative.com/hubfs/2023-web/fonts/Aeonik-Regular.woff) format("woff");}

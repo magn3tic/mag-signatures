@@ -58,7 +58,7 @@ rows = [extract(os.path.join(PAGES, f)) for f in sorted(os.listdir(PAGES))
         if f.endswith(".html") and f != "index.html"]
 for r in rows:
     p = r["photo"]
-    r["region"] = "United States" if "/headshots/us/" in p else "South Africa"
+    r["region"] = "United States" if "/headshots/us/" in p or "/gifs/us/" in p else "South Africa"
     r["slug"] = "us" if r["region"] == "United States" else "south-africa"
 
 json.dump(rows, open("generator/people.json", "w"), indent=2, ensure_ascii=False)

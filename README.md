@@ -33,8 +33,9 @@ put a `@main` URL into a signature that goes out to people.
 ```
 MAG-signatures-master.xlsx  who has a signature -- the sheet to work from
 MAG-signatures-master.csv   the same rows, plain text
-pages/                      the 63 signature pages, plus index.html
+pages/                      one signature page per person, plus index.html
 generator/                  the build scripts, and the old SA and US generators
+images/gifs/                the animated headshots the signatures load (us/, sa/)
 images/icons/               shared chrome: globe, mail, smartphone
 images/headshots/us/        US headshots
 images/headshots/sa/        SA headshots
@@ -52,7 +53,7 @@ https://magn3tic.github.io/mag-signatures/pages/index.html          the master l
 https://magn3tic.github.io/mag-signatures/pages/Gabriel_Arias.html  one person
 ```
 
-`index.html` is the page to send round: all 63 signatures grouped by region,
+`index.html` is the page to send round: every signature grouped by region,
 searchable, with one switch that flips every preview to dark and a copy button
 on each card. Each person's own page shows their signature on white and on
 black, gives them the three ways to take it away — copy, a `.htm` for Outlook
@@ -62,7 +63,7 @@ The pages are generated. Editing one by hand is overwritten on the next build:
 
 ```bash
 python3 generator/extract.py        # read the pages -> generator/people.json
-python3 generator/build-person.py   # rebuild the 63
+python3 generator/build-person.py   # rebuild every page
 python3 generator/build-index.py    # rebuild index.html
 ```
 
@@ -70,9 +71,36 @@ python3 generator/build-index.py    # rebuild index.html
 the signatures survive a rebuild untouched — the design around them is the only
 thing regenerated.
 
+## Animated headshots
+
+Every signature loads a GIF from `images/gifs/`: the photo holds for 2.6 s,
+crossfades into the MAG logo, holds it for 1.8 s and fades back. Outlook for
+Windows shows only the first frame, which is the photo.
+
+```bash
+pip install pillow
+python3 generator/make-gifs.py      # images/gifs/ + people.json point at them
+python3 generator/build-person.py && python3 generator/build-index.py
+```
+
+`make-gifs.py` builds each GIF from the headshot in `images/headshots/` and
+records which one in `images/gifs/sources.json`, so it can rebuild them after the
+signatures already point at the GIFs. The URLs use `CDN` in `generator/theme.py`
+-- move that to the new tag whenever you cut one.
+
+A signature image that fails to load on a page is swapped for
+`images/gifs/mag-logo.gif` before it can be copied.
+
+## When someone joins
+
+Add them to `generator/people.json` (copy a colleague's entry: `file`, `name`,
+`role`, `email`, `phone` and the same values inside `sig`). With no headshot
+yet, set `photo` and the first `<img src>` to `LOGO` and they get the logo
+until one arrives. Then run the three commands above and `build-master.py`.
+
 ## When someone leaves
 
-`MAG-signatures-master.xlsx` lists all 63 with their role, address, phone,
+`MAG-signatures-master.xlsx` lists everyone with their role, address, phone,
 region, page and page URL. Set their **Status** to `Remove` in the Signatures
 tab, save, and run:
 

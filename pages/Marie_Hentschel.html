@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Marie Hentschel &mdash; MAG email signature</title>
+<title>Marie Bredenkamp &mdash; MAG email signature</title>
 <meta name="robots" content="noindex">
 <style>
 @font-face{font-family:Aeonik;font-style:normal;font-weight:400;font-display:swap;
@@ -177,8 +177,8 @@ footer code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace; fo
 <main class="wrap">
   <div class="hero">
     <span class="eyebrow">Your signature</span>
-    <h1>Marie Hentschel</h1>
-    <p class="role">Senior Account Manager</p>
+    <h1>Marie Bredenkamp</h1>
+    <p class="role">Account Director</p>
     <p class="mailto"><a href="mailto:marie@mag.cr">marie@mag.cr</a></p>
   </div>
 
@@ -189,11 +189,11 @@ footer code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace; fo
         <tbody>
             <tr style="height: 151px;">
                 <td style="vertical-align: top; padding-top: 5px; padding-right: 5px; width: 150.297px; height: 151px;">
-                    <img src="https://cdn.jsdelivr.net/gh/magn3tic/mag-signatures@v1.0.0/images/headshots/sa-2025/marie-4-400x400-circle-v1.png" alt="Marie Hentschel" width="150" height="149" />
+                    <img src="https://cdn.jsdelivr.net/gh/magn3tic/mag-signatures@v1.1.0/images/gifs/sa/Marie_Hentschel.gif" alt="Marie Bredenkamp" width="150" height="149" />
                 </td>
                 <td style="vertical-align: top; width: 342.703px; height: 151px;">
-                    <span style="font-size: 28px; color: black; font-family: 'Times New Roman', serif;">Marie Hentschel</span><br />
-                    <span style="color: #b59756;">Senior Account Manager</span> 
+                    <span style="font-size: 28px; color: black; font-family: 'Times New Roman', serif;">Marie Bredenkamp</span><br />
+                    <span style="color: #b59756;">Account Director</span> 
                     <br />
                     <table style="margin-top: 10px;">
                         <tbody>
@@ -234,11 +234,11 @@ footer code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace; fo
         <tbody>
             <tr style="height: 151px;">
                 <td style="vertical-align: top; padding-top: 5px; padding-right: 5px; width: 150.297px; height: 151px;">
-                    <img src="https://cdn.jsdelivr.net/gh/magn3tic/mag-signatures@v1.0.0/images/headshots/sa-2025/marie-4-400x400-circle-v1.png" alt="Marie Hentschel" width="150" height="149" />
+                    <img src="https://cdn.jsdelivr.net/gh/magn3tic/mag-signatures@v1.1.0/images/gifs/sa/Marie_Hentschel.gif" alt="Marie Bredenkamp" width="150" height="149" />
                 </td>
                 <td style="vertical-align: top; width: 342.703px; height: 151px;">
-                    <span style="font-size: 28px; color: black; font-family: 'Times New Roman', serif;">Marie Hentschel</span><br />
-                    <span style="color: #b59756;">Senior Account Manager</span> 
+                    <span style="font-size: 28px; color: black; font-family: 'Times New Roman', serif;">Marie Bredenkamp</span><br />
+                    <span style="color: #b59756;">Account Director</span> 
                     <br />
                     <table style="margin-top: 10px;">
                         <tbody>
@@ -296,7 +296,7 @@ footer code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace; fo
       <figure style="max-width:504px"><img src="../assets/step%203.png" alt="" loading="lazy" width="504" height="272"></figure></li>
     <li><span class="t">Scroll down to <b>Signature</b> and click <b>Create new</b>.</span>
       <figure style="max-width:890px"><img src="../assets/step%204.png" alt="" loading="lazy" width="890" height="462"></figure></li>
-    <li><span class="t">Give it a name &mdash; <code>Marie Hentschel</code> works &mdash; and click <b>Create</b>.</span>
+    <li><span class="t">Give it a name &mdash; <code>Marie Bredenkamp</code> works &mdash; and click <b>Create</b>.</span>
       <figure style="max-width:729px"><img src="../assets/step%205.png" alt="" loading="lazy" width="729" height="518"></figure></li>
     <li><span class="t">Click into the box and paste with <kbd>Cmd</kbd> + <kbd>V</kbd> (Mac) or <kbd>Ctrl</kbd> + <kbd>V</kbd> (Windows). Then set it under <b>For new emails use</b> and <b>On reply/forward use</b>, and click <b>Save changes</b> at the bottom.</span>
       <figure style="max-width:1330px"><img src="../assets/step%206.png" alt="" loading="lazy" width="1330" height="771"></figure></li>
@@ -326,7 +326,7 @@ footer code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace; fo
 
 <footer class="wrap">
   <p>This page lives at <a href="https://magn3tic.github.io/mag-signatures/pages/Marie_Hentschel.html"><code>https://magn3tic.github.io/mag-signatures/pages/Marie_Hentschel.html</code></a> &mdash; yours to keep, and safe to re-open any time.</p>
-  <p>Artwork loads from <code>cdn.jsdelivr.net/gh/magn3tic/mag-signatures@v1.0.0</code>, so what you see here is exactly what gets pasted.</p>
+  <p>Artwork loads from <code>cdn.jsdelivr.net/gh/magn3tic/mag-signatures@v1.1.0</code>, so what you see here is exactly what gets pasted.</p>
 </footer>
 
 <div id="live" class="sr-only" role="status" aria-live="polite"></div>
@@ -423,6 +423,14 @@ async function copyText(text){
   catch(e){ return false; }
   finally{ document.body.removeChild(ta); }
 }
+
+/* A signature image that fails to load is swapped for the MAG logo before
+   anyone copies it, so a broken image never reaches a mail client. */
+var FALLBACK_IMG = "https://cdn.jsdelivr.net/gh/magn3tic/mag-signatures@v1.1.0/images/gifs/mag-logo.gif";
+Array.prototype.forEach.call(document.querySelectorAll("img[src*='cdn.jsdelivr.net/gh/magn3tic']"), function(img){
+  function swap(){ if(img.src !== FALLBACK_IMG) img.src = FALLBACK_IMG; }
+  if(img.complete && img.naturalWidth === 0) swap(); else img.addEventListener("error", swap);
+});
 
 /* data-copy / data-download carry the id of the wrapper holding the signature.
    Image URLs are already absolute, so the markup ships as-is. */

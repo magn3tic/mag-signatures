@@ -1,4 +1,5 @@
 """Inline SVG icons and the clipboard script shared by every generated page."""
+from theme import CDN
 
 def icon(paths, w=1.8):
     return ('<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="%s" '
@@ -115,6 +116,14 @@ async function copyText(text){
   finally{ document.body.removeChild(ta); }
 }
 
+/* A signature image that fails to load is swapped for the MAG logo before
+   anyone copies it, so a broken image never reaches a mail client. */
+var FALLBACK_IMG = "%s/images/gifs/mag-logo.gif";
+Array.prototype.forEach.call(document.querySelectorAll("img[src*='cdn.jsdelivr.net/gh/magn3tic']"), function(img){
+  function swap(){ if(img.src !== FALLBACK_IMG) img.src = FALLBACK_IMG; }
+  if(img.complete && img.naturalWidth === 0) swap(); else img.addEventListener("error", swap);
+});
+
 /* data-copy / data-download carry the id of the wrapper holding the signature.
    Image URLs are already absolute, so the markup ships as-is. */
 document.addEventListener("click", function(ev){
@@ -133,4 +142,4 @@ document.addEventListener("click", function(ev){
   var lk = ev.target.closest("[data-link]");
   if(lk) copyText(lk.getAttribute("data-link")).then(function(ok){ flashButton(lk, ok, "Link copied"); });
 });
-""" % (CHECK_JS, ALERT_JS)
+""" % (CHECK_JS, ALERT_JS, CDN)
