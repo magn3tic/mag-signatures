@@ -17,16 +17,16 @@ PEOPLE = "generator/people.json"
 GIFS = "images/gifs"
 SOURCES = GIFS + "/sources.json"
 LOGO = "images/mag-logo.png"
-SIZE, COLORS, STEPS, STEP_MS = 240, 64, 14, 30
+# 400px shown at 150: the browser's downscale smooths the circle's edge.
+SIZE, COLORS, STEPS, STEP_MS = 400, 48, 10, 40
 HOLD_PHOTO_MS, HOLD_LOGO_MS = 2600, 1800
 
 ease = lambda t: 4 * t**3 if t < .5 else 1 - (-2 * t + 2)**3 / 2
 
 
 # GIF transparency is all-or-nothing, so the circle's soft edge is cut at half
-# alpha and what is left of it is blended onto a mid grey: no white halo on a
-# dark inbox, no black one on a light inbox.
-MATTE = (150, 150, 150, 255)
+# alpha. The pixels kept on that edge keep the circle's own colour rather than
+# being mixed with a background, so there is no halo on light or dark inboxes.
 CUT = 128
 
 
@@ -35,9 +35,14 @@ def load(path):
 
 
 def flatten(im):
-    bg = Image.new("RGBA", (SIZE, SIZE), MATTE)
-    bg.alpha_composite(im)
-    return bg.convert("RGB")
+    return im.convert("RGB")
+
+
+def same(a, b):
+    """True when two RGBA images look identical once composited on grey."""
+    grey = Image.new("RGBA", (SIZE, SIZE), (150, 150, 150, 255))
+    a, b = Image.alpha_composite(grey, a), Image.alpha_composite(grey, b)
+    return ImageChops.difference(a, b).convert("L").point(lambda v: 255 if v >= 16 else 0).getbbox() is None
 
 
 def save(frames, durations, path):
@@ -57,7 +62,7 @@ def make(photo_path, out):
     logo = load(LOGO)
     photo = logo if photo_path == LOGO else load(photo_path)
     # Some old headshots are already the logo; there is nothing to fade between.
-    if ImageChops.difference(flatten(photo), flatten(logo)).convert("L").point(lambda v: 255 if v >= 16 else 0).getbbox() is None:
+    if same(photo, logo):
         return save([logo], [0], out)
     fade = lambda a, b: [Image.blend(a, b, ease(i / STEPS)) for i in range(1, STEPS)]
     save([photo, *fade(photo, logo), logo, *fade(logo, photo)],

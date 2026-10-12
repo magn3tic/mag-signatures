@@ -189,7 +189,7 @@ footer code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace; fo
         <tbody>
             <tr style="height: 151px;">
                 <td style="vertical-align: top; padding-top: 5px; padding-right: 5px; width: 150.297px; height: 151px;">
-                    <img src="https://cdn.jsdelivr.net/gh/magn3tic/mag-signatures@v1.2.0/images/gifs/us/Gabriel_Arias.gif" alt="Gabriel Arias" width="150" height="149" />
+                    <img src="https://cdn.jsdelivr.net/gh/magn3tic/mag-signatures@v1.3.0/images/gifs/us/Gabriel_Arias.gif" alt="Gabriel Arias" width="150" height="149" />
                 </td>
                 <td style="vertical-align: top; width: 342.703px; height: 151px;">
                     <span style="font-size: 28px; color: black; font-family: 'Times New Roman', serif;">Gabriel Arias</span><br />
@@ -234,7 +234,7 @@ footer code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace; fo
         <tbody>
             <tr style="height: 151px;">
                 <td style="vertical-align: top; padding-top: 5px; padding-right: 5px; width: 150.297px; height: 151px;">
-                    <img src="https://cdn.jsdelivr.net/gh/magn3tic/mag-signatures@v1.2.0/images/gifs/us/Gabriel_Arias.gif" alt="Gabriel Arias" width="150" height="149" />
+                    <img src="https://cdn.jsdelivr.net/gh/magn3tic/mag-signatures@v1.3.0/images/gifs/us/Gabriel_Arias.gif" alt="Gabriel Arias" width="150" height="149" />
                 </td>
                 <td style="vertical-align: top; width: 342.703px; height: 151px;">
                     <span style="font-size: 28px; color: black; font-family: 'Times New Roman', serif;">Gabriel Arias</span><br />
@@ -309,7 +309,7 @@ footer code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace; fo
 
 <footer class="wrap">
   <p>This page lives at <a href="https://magn3tic.github.io/mag-signatures/pages/Gabriel_Arias.html"><code>https://magn3tic.github.io/mag-signatures/pages/Gabriel_Arias.html</code></a> &mdash; yours to keep, and safe to re-open any time.</p>
-  <p>Artwork loads from <code>cdn.jsdelivr.net/gh/magn3tic/mag-signatures@v1.2.0</code>, so what you see here is exactly what gets pasted.</p>
+  <p>Artwork loads from <code>cdn.jsdelivr.net/gh/magn3tic/mag-signatures@v1.3.0</code>, so what you see here is exactly what gets pasted.</p>
 </footer>
 
 <div id="live" class="sr-only" role="status" aria-live="polite"></div>
@@ -399,7 +399,7 @@ async function copyText(text){
 
 /* A signature image that fails to load is swapped for the MAG logo before
    anyone copies it, so a broken image never reaches a mail client. */
-var FALLBACK_IMG = "https://cdn.jsdelivr.net/gh/magn3tic/mag-signatures@v1.2.0/images/gifs/mag-logo.gif";
+var FALLBACK_IMG = "https://cdn.jsdelivr.net/gh/magn3tic/mag-signatures@v1.3.0/images/gifs/mag-logo.gif";
 Array.prototype.forEach.call(document.querySelectorAll("img[src*='cdn.jsdelivr.net/gh/magn3tic']"), function(img){
   function swap(){ if(img.src !== FALLBACK_IMG) img.src = FALLBACK_IMG; }
   if(img.complete && img.naturalWidth === 0) swap(); else img.addEventListener("error", swap);
