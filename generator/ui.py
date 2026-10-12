@@ -6,7 +6,6 @@ def icon(paths, w=1.8):
             'stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">%s</svg>' % (w, paths))
 
 COPY  = icon('<rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>')
-DOWN  = icon('<path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="M7 10l5 5 5-5"/><path d="M12 15V3"/>')
 LINK  = icon('<path d="M10 13a5 5 0 0 0 7.5.5l3-3a5 5 0 0 0-7-7l-1.7 1.7"/><path d="M14 11a5 5 0 0 0-7.5-.5l-3 3a5 5 0 0 0 7 7l1.7-1.7"/>')
 OPEN  = icon('<path d="M15 3h6v6"/><path d="M10 14 21 3"/><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>')
 BACK  = icon('<path d="M19 12H5"/><path d="m12 19-7-7 7-7"/>')
@@ -89,16 +88,6 @@ function announce(msg){
   if(live) live.textContent = msg;
 }
 
-function downloadHtm(html, filename){
-  var doc = '<!DOCTYPE html><html><head><meta charset="utf-8">' +
-            '<meta http-equiv="Content-Type" content="text/html; charset=utf-8"></head>' +
-            '<body style="margin:0;">' + html + '</body></html>';
-  var url = URL.createObjectURL(new Blob([doc], {type:"text/html"}));
-  var a = document.createElement("a");
-  a.href = url; a.download = filename; a.click();
-  URL.revokeObjectURL(url);
-}
-
 async function copyText(text){
   try{
     if(navigator.clipboard && navigator.clipboard.writeText && window.isSecureContext){
@@ -124,19 +113,13 @@ Array.prototype.forEach.call(document.querySelectorAll("img[src*='cdn.jsdelivr.n
   if(img.complete && img.naturalWidth === 0) swap(); else img.addEventListener("error", swap);
 });
 
-/* data-copy / data-download carry the id of the wrapper holding the signature.
+/* data-copy carries the id of the wrapper holding the signature.
    Image URLs are already absolute, so the markup ships as-is. */
 document.addEventListener("click", function(ev){
   var btn = ev.target.closest("[data-copy]");
   if(btn){
     var src = document.getElementById(btn.getAttribute("data-copy"));
     if(src) copyRichHtml(src.innerHTML).then(function(ok){ flashButton(btn, ok); });
-    return;
-  }
-  var dl = ev.target.closest("[data-download]");
-  if(dl){
-    var node = document.getElementById(dl.getAttribute("data-download"));
-    if(node) downloadHtm(node.innerHTML, dl.getAttribute("data-filename"));
     return;
   }
   var lk = ev.target.closest("[data-link]");

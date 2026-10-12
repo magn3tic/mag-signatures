@@ -40,7 +40,7 @@ images/icons/               shared chrome: globe, mail, smartphone
 images/headshots/us/        US headshots
 images/headshots/sa/        SA headshots
 images/headshots/sa-2025/   the 2025 SA round
-assets/                     the step-by-step install screenshots
+assets/gmail/               the Gmail install illustrations (generator/build-shots.py)
 migration/url-map.json      every old HubSpot URL and the file it became
 ```
 
@@ -56,8 +56,8 @@ https://magn3tic.github.io/mag-signatures/pages/Gabriel_Arias.html  one person
 `index.html` is the page to send round: every signature grouped by region,
 searchable, with one switch that flips every preview to dark and a copy button
 on each card. Each person's own page shows their signature on white and on
-black, gives them the three ways to take it away — copy, a `.htm` for Outlook
-desktop, or the link — and walks them through Gmail with screenshots.
+black, gives them two ways to take it away — copy it, or copy the link — and
+walks them through installing it in Gmail, one illustration per step.
 
 The pages are generated. Editing one by hand is overwritten on the next build:
 
@@ -90,6 +90,21 @@ signatures already point at the GIFs. The URLs use `CDN` in `generator/theme.py`
 
 A signature image that fails to load on a page is swapped for
 `images/gifs/mag-logo.gif` before it can be copied.
+
+## The Gmail illustrations
+
+`assets/gmail/step-2.png` to `step-8.png` are clean recreations of the Gmail
+screens, not screenshots: same size, light theme, one MAG-orange spotlight on
+the thing to click. They come from `generator/gmail-shots.html` and are rendered
+with headless Chrome:
+
+```bash
+python3 generator/build-shots.py
+```
+
+If Gmail moves something, change the scene in `gmail-shots.html` and re-run.
+The spotlight and its label are measured from the element named in `data-for`,
+so they follow the layout on their own.
 
 ## When someone joins
 

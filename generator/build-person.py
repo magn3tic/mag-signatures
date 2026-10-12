@@ -1,8 +1,8 @@
-"""Rebuilds the 63 person pages in the MAG design system.
+"""Rebuilds every person page in the MAG design system.
 
-Each page shows the signature light and dark, gives the three ways to take it
-away (copy, .htm download, share the link), and then walks through Gmail with
-the screenshots that were already in the repo.
+Each page shows the signature light and dark, gives two ways to take it away
+(copy it, or share the link), and walks through installing it in Gmail with the
+illustrations in assets/gmail/ (made by build-shots.py).
 """
 import json, os, struct, sys, html
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
@@ -86,22 +86,25 @@ def png_size(path):
         head = fh.read(24)
     return struct.unpack(">II", head[16:24])
 
-SHOT_SIZE = {f: png_size(os.path.join("assets", f)) for f in os.listdir("assets") if f.endswith(".png")}
+SHOTS = "assets/gmail"
+SHOT_SIZE = {f: png_size(os.path.join(SHOTS, f)) for f in os.listdir(SHOTS) if f.endswith(".png")}
 
 def gmail_steps(name):
-    """Step 1 is the copy button on this page, so the screenshots start at 2 --
-       which is exactly how the files in assets/ are numbered."""
+    """Step 1 happens on this page; the illustrations cover the rest, one action each."""
     return [
-        ('Click <b>Copy signature</b> above. Everything you need is now on your '
-         'clipboard &mdash; artwork included.', None),
+        ('Click <b>Copy signature</b> above. The whole signature, artwork included, '
+         'is now on your clipboard.', None),
         ('Open <a href="https://mail.google.com/mail" target="_blank" rel="noopener">Gmail</a> '
-         'and click the <b>settings</b> gear, top right.', "step 2.png"),
-        ('Click <b>See all settings</b>.', "step 3.png"),
-        ('Scroll down to <b>Signature</b> and click <b>Create new</b>.', "step 4.png"),
-        ('Give it a name &mdash; <code>%s</code> works &mdash; and click <b>Create</b>.' % esc(name), "step 5.png"),
-        ('Click into the box and paste with <kbd>Cmd</kbd> + <kbd>V</kbd> (Mac) or '
-         '<kbd>Ctrl</kbd> + <kbd>V</kbd> (Windows). Then set it under <b>For new emails use</b> '
-         'and <b>On reply/forward use</b>, and click <b>Save changes</b> at the bottom.', "step 6.png"),
+         'and click the <b>settings</b> gear at the top right.', "step-2.png"),
+        ('Click <b>See all settings</b>.', "step-3.png"),
+        ('On the <b>General</b> tab, scroll down to <b>Signature</b> and click <b>Create new</b>.', "step-4.png"),
+        ('Name it <code>MAG</code> and click <b>Create</b>.', "step-5.png"),
+        ('Click into the signature box and paste with <kbd>Cmd</kbd> + <kbd>V</kbd> on a Mac '
+         'or <kbd>Ctrl</kbd> + <kbd>V</kbd> on Windows.', "step-6.png"),
+        ('Under <b>Signature defaults</b>, choose <b>MAG</b> for both '
+         '<b>For new emails use</b> and <b>On reply/forward use</b>.', "step-7.png"),
+        ('Scroll to the very bottom of the page and click <b>Save Changes</b>. '
+         'Open a new email to check it.', "step-8.png"),
     ]
 
 def render(p):
@@ -110,9 +113,9 @@ def render(p):
     for text, shot in gmail_steps(name):
         if shot:
             w, h = SHOT_SIZE[shot]
-            fig = ('\n      <figure style="max-width:%dpx"><img src="../assets/%s" alt="" '
+            fig = ('\n      <figure style="max-width:%dpx"><img src="../%s/%s" alt="" '
                    'loading="lazy" width="%d" height="%d"></figure>'
-                   % (w, shot.replace(" ", "%20"), w, h))
+                   % (w // 2, SHOTS, shot, w, h))
         else:
             fig = ""
         walk.append('    <li><span class="t">%s</span>%s</li>' % (text, fig))
@@ -157,42 +160,21 @@ def render(p):
 {light}
 {dark}
   </div>
-  <p class="note">Gmail and Outlook dark mode invert the black type to white and leave the
-     artwork alone. The gold job title stays gold. Worth a look on a phone before you sign off.</p>
+  <p class="note">In dark mode Gmail turns the black type white and leaves the artwork and the
+     gold job title alone.</p>
 
   <div class="actions">
     <span class="label">Install</span>
     <button class="btn btn-primary" data-copy="content">{copy}<span>Copy signature</span></button>
-    <button class="btn" data-download="content" data-filename="{slug}.htm">{down}<span>Download .htm (Outlook desktop)</span></button>
     <button class="btn" data-link="{url}" title="{url}">{link}<span>Copy link to this page</span></button>
   </div>
 
   <div class="steps">
-    <h2>Gmail</h2>
-    <p>Six steps, about a minute. Do it on a computer &mdash; the Gmail mobile app
-       cannot paste a formatted signature.</p>
+    <h2>Install it in Gmail</h2>
+    <p>Eight steps, about two minutes. Use Gmail on a computer: the mobile app cannot
+       paste a formatted signature. Once it is saved, it shows up on your phone too.</p>
     <ol class="walk">
 {walk}
-    </ol>
-
-    <h2>Outlook &mdash; Windows (the .htm file)</h2>
-    <ol class="walk">
-      <li><span class="t">Click <b>Download .htm (Outlook desktop)</b> above.</span></li>
-      <li><span class="t">Open File Explorer and paste this into the address bar:
-          <code>%APPDATA%\\Microsoft\\Signatures</code></span></li>
-      <li><span class="t">Drop <code>{slug}.htm</code> into that folder.</span></li>
-      <li><span class="t">In Outlook go to <b>File &rarr; Options &rarr; Mail &rarr; Signatures</b>.</span></li>
-      <li><span class="t">Pick it under <b>New messages</b> and <b>Replies/forwards</b>, then <b>OK</b>.</span></li>
-    </ol>
-
-    <h2>Outlook &mdash; Mac and web (paste)</h2>
-    <ol class="walk">
-      <li><span class="t">Click <b>Copy signature</b> above.</span></li>
-      <li><span class="t"><b>Mac:</b> <b>Outlook &rarr; Settings &rarr; Signatures</b> &rarr; <b>+</b>.<br>
-          <b>Web / new Outlook:</b> gear &rarr; <b>Mail &rarr; Compose and reply &rarr; Email signature</b>.</span></li>
-      <li><span class="t">Paste with <kbd>Cmd</kbd> + <kbd>V</kbd> or <kbd>Ctrl</kbd> + <kbd>V</kbd>.
-          Do not use &ldquo;paste as plain text&rdquo; &mdash; it drops the artwork.</span></li>
-      <li><span class="t">Assign it to new messages and to replies, then save.</span></li>
     </ol>
   </div>
 </main>
@@ -212,7 +194,7 @@ def render(p):
         fonts=theme.FONTS, base=theme.BASE, css=PAGE_CSS, js=ui.CLIPBOARD_JS, cdn=theme.CDN.split("//", 1)[1],
         light=pane("light", "Light background", ui.LIGHT),
         dark=pane("dark", "Dark mode", ui.DARKI),
-        copy=ui.COPY, down=ui.DOWN, link=ui.LINK, back=ui.BACK,
+        copy=ui.COPY, link=ui.LINK, back=ui.BACK,
         walk="\n".join(walk),
     )
 
