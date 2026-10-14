@@ -186,11 +186,6 @@ def render(p):
   </div>
 </main>
 
-<footer class="wrap">
-  <p>This page lives at <a href="{url}"><code>{url}</code></a> &mdash; yours to keep, and safe to re-open any time.</p>
-  <p>Artwork loads from <code>{cdn}</code>, so what you see here is exactly what gets pasted.</p>
-</footer>
-
 <div id="live" class="sr-only" role="status" aria-live="polite"></div>
 <script>{js}</script>
 </body>
@@ -198,7 +193,7 @@ def render(p):
 """.format(
         name=esc(name), role=esc(p["role"]), email=esc(p["email"]),
         region=esc(p["region"]), slug=esc(slug), url=BASE + slug + ".html",
-        fonts=theme.FONTS, base=theme.BASE, css=PAGE_CSS, js=ui.CLIPBOARD_JS, cdn=theme.CDN.split("//", 1)[1],
+        fonts=theme.FONTS, base=theme.BASE, css=PAGE_CSS, js=ui.CLIPBOARD_JS,
         light=pane("light", "Light background", ui.LIGHT),
         dark=pane("dark", "Dark mode", ui.DARKI),
         copy=ui.COPY, link=ui.LINK, back=ui.BACK,

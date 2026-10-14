@@ -251,10 +251,6 @@ doc = """<!DOCTYPE html>
   <div class="hero">
     <span class="eyebrow">Master list</span>
     <h1>MAG email signatures</h1>
-    <p>All {total} signatures, rendered from the exact markup each person's page copies.
-       Flip the preview to dark to check the inversion, hit <b>Copy</b> on any card to put
-       that one on the clipboard, or send someone <b>Link</b> and let them follow the
-       Gmail walk-through on their own page.</p>
   </div>
 
 
@@ -264,20 +260,12 @@ doc = """<!DOCTYPE html>
      Check the spelling, or <button type="button" class="linkish" id="empty-clear">clear the search</button>.</p>
 </main>
 
-<footer class="wrap">
-  <p>Published at <a href="{base}"><code>{base}</code></a> &mdash; each person's link is that
-     plus their file name, e.g. <code>Gabriel_Arias.html</code>.</p>
-  <p>Rebuild with <code>python3 generator/extract.py &amp;&amp; python3 generator/build-person.py &amp;&amp; python3 generator/build-index.py</code>.</p>
-  <p>Images load from <code>{cdn}</code>, pinned to the
-     tag, so this page renders exactly what gets pasted.</p>
-</footer>
-
 <div id="live" class="sr-only" role="status" aria-live="polite"></div>
 <script>{js}{indexjs}</script>
 </body>
 </html>
-""".format(fonts=theme.FONTS, base=BASE, css=theme.BASE + INDEX_CSS,
-           js=ui.CLIPBOARD_JS, cdn=theme.CDN.split("//", 1)[1], indexjs=INDEX_JS, total=len(people),
+""".format(fonts=theme.FONTS, css=theme.BASE + INDEX_CSS,
+           js=ui.CLIPBOARD_JS, indexjs=INDEX_JS,
            search=ui.SEARCH, x=ui.X, moon=ui.MOON,
            chips="\n".join(chips), sections="\n\n".join(sections))
 
