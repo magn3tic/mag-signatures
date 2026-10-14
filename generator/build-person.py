@@ -97,12 +97,17 @@ def gmail_steps(name):
         ('Open <a href="https://mail.google.com/mail" target="_blank" rel="noopener">Gmail</a> '
          'and click the <b>settings</b> gear at the top right.', "step-2.png"),
         ('Click <b>See all settings</b>.', "step-3.png"),
-        ('On the <b>General</b> tab, scroll down to <b>Signature</b> and click <b>Create new</b>.', "step-4.png"),
-        ('Name it <code>MAG</code> and click <b>Create</b>.', "step-5.png"),
+        ('On the <b>General</b> tab, scroll down to <b>Signature</b> and click <b>Create new</b>. '
+         'If you already have a signature there, still click <b>Create new</b>: add a new one '
+         'instead of editing the old one.', "step-4.png"),
+        ('Name it <code>MAG</code> and click <b>Create</b>. If that name is taken by your old '
+         'signature, use <code>MAG 2026</code>.', "step-5.png"),
         ('Click into the signature box and paste with <kbd>Cmd</kbd> + <kbd>V</kbd> on a Mac '
          'or <kbd>Ctrl</kbd> + <kbd>V</kbd> on Windows.', "step-6.png"),
-        ('Under <b>Signature defaults</b>, choose <b>MAG</b> for both '
-         '<b>For new emails use</b> and <b>On reply/forward use</b>.', "step-7.png"),
+        ('Under <b>Signature defaults</b>, choose the new signature for both '
+         '<b>For new emails use</b> and <b>On reply/forward use</b>. If your old one is still '
+         'selected there, switch both to the new one. You can then delete the old one with the '
+         'bin icon next to it.', "step-7.png"),
         ('Scroll to the very bottom of the page and click <b>Save Changes</b>. '
          'Open a new email to check it.', "step-8.png"),
     ]
@@ -173,6 +178,8 @@ def render(p):
     <h2>Install it in Gmail</h2>
     <p>Eight steps, about two minutes. Use Gmail on a computer: the mobile app cannot
        paste a formatted signature. Once it is saved, it shows up on your phone too.</p>
+    <p><b>Already have a signature in Gmail?</b> Don't edit it. Add this one as a new
+       signature (step 4) and select it as the default (step 7).</p>
     <ol class="walk">
 {walk}
     </ol>
